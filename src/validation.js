@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { isEmpty } from './utils';
-import { isNumber } from './numbers';
+import { isNumber } from './number';
 
 const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0 /* first error */ ];
 
