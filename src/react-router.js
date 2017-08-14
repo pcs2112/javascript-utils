@@ -1,3 +1,5 @@
+import { isEmpty } from './utils';
+
 /**
  * Executes a list of onEnter hook functions in parallel.
  *
@@ -48,4 +50,33 @@ export const composeEnterHooksSeries = (hooks) => (nextState, replace, next) => 
       executeHooksSynchronously(remainingHooks.slice(1));
     }
   })(hooks);
+};
+
+/**
+ * @param {Object} store Redux store
+ * @param {Array} requiredParams List of required url params
+ * @param {String} errorUrl
+ * @return {Function} onEnter callback helper for checking if url params are set
+ */
+export const urlParamsRequired = (store, requiredParams = [], errorUrl = '/error') => (nextState, replace, next) => {
+  const { location: { query } } = nextState;
+  let notAllFound = false;
+
+  if (Array.isArray(requiredParams) && requiredParams.length > 0) {
+    if (!query) {
+      notAllFound = true;
+    } else {
+      requiredParams.forEach((param) => {
+        if (!query[param] || isEmpty(query[param])) {
+          notAllFound = true;
+        }
+      });
+    }
+  }
+
+  if (notAllFound) {
+    replace(errorUrl);
+  }
+
+  next();
 };
