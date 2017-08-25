@@ -113,4 +113,4 @@ export const getCurrentPageFromOffset = (offset, total) => total < 1 ? 1 : Math.
  * @param {Number} total
  * @return {Number}
  */
-export const getTotalPagesFromLimit = (limit, total) => total < 1 ? 0 : Math.ceil(limit / total);
+export const getTotalPagesFromLimit = (limit, total) => total < 1 ? 0 : Math.ceil(total / limit);
