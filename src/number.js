@@ -101,10 +101,10 @@ export const getRandomNumber = (length) =>
  * specified offset.
  *
  * @param {Number} offset
- * @param {Number} total
+ * @param {Number} limit
  * @return {Number}
  */
-export const getCurrentPageFromOffset = (offset, total) => total < 1 ? 1 : Math.ceil(offset / total);
+export const getCurrentPageFromOffset = (offset, limit) => offset + limit / limit;
 
 /**
  * Returns the number of pages from a limit per page.
