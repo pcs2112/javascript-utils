@@ -95,3 +95,13 @@ export const calculateEarnings = (sqrFeetCost, length, width) => calculateSquare
  */
 export const getRandomNumber = (length) =>
   Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1));
+
+/**
+ * Returns the current page number from the
+ * specified offset.
+ *
+ * @param {Number} offset
+ * @param {Number} total
+ * @return {Number}
+ */
+export const getCurrentPageFromOffset = (offset, total) => total < 1 ? 1 : Math.ceil(offset / total);
