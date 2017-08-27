@@ -1,3 +1,6 @@
+import build from 'redux-object';
+import { getTotalPagesFromLimit, getCurrentPageFromOffset } from './pagination';
+
 /**
  * Function used to create a reducer function.
  *
@@ -24,4 +27,61 @@ export const createAction = (type, ...argNames) => (...args) => {
     action[argNames[index]] = args[index];
   });
   return action;
+};
+
+/**
+ * Converts a JSON API object to an object using redux-object.
+ *
+ * @param {Object} data
+ * @param {String} key
+ * @param {Number} index
+ * @returns {Object}
+ */
+export const getReduxObject = (data, key, index = 0) => {
+  if (!data || !data.loaded || !data[key]) {
+    return null;
+  }
+
+  const keys = Object.keys(data[key]);
+  return build(data, key, keys[index]);
+};
+
+/**
+ * Converts a JSON API object to an array of objects using redux-object.
+ *
+ * @param {Object} data
+ * @param {String} key
+ * @returns {Array}
+ */
+export const getReduxObjectArray = (data, key) => {
+  if (!data || !data[key]) {
+    return [];
+  }
+
+  return build(data, key, null);
+};
+
+/**
+ * Returns the JSON API pagination info.
+ * @param {Object} data
+ * @returns {Object|null}
+ */
+export const getReduxObjectPagination = (data) => {
+  if (!data || !data.meta) {
+    return null;
+  }
+
+  const pageKey = Object.keys(data.meta)[0];
+  if (!data.meta[pageKey].links) {
+    return null;
+  }
+
+  const linksMeta = {
+    ...data.meta[pageKey].links
+  };
+
+  linksMeta.totalPages = getTotalPagesFromLimit(linksMeta.limit, linksMeta.size);
+  linksMeta.currentPage = getCurrentPageFromOffset(linksMeta.offset, linksMeta.size);
+
+  return linksMeta;
 };
