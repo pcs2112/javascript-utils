@@ -175,3 +175,20 @@ export const formatCreditCardNumber = (creditCardNumber) => {
 
   return `xxxx-xxxx-xxxx-${result}`;
 };
+
+/**
+ * Returns a person's full name base on the
+ * firstName and lastName arguments.
+ *
+ * @param {String} firstName
+ * @param {String} lastName
+ * @returns {String}
+ */
+export const getFullName = (firstName, lastName) => {
+  let fullName = firstName;
+  if (isEmpty(lastName)) {
+    fullName += ' ' + lastName;
+  }
+
+  return fullName;
+};
