@@ -186,7 +186,7 @@ export const formatCreditCardNumber = (creditCardNumber) => {
  */
 export const getFullName = (firstName, lastName) => {
   let fullName = firstName;
-  if (isEmpty(lastName)) {
+  if (!isEmpty(lastName)) {
     fullName += ' ' + lastName;
   }
 
