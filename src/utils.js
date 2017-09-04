@@ -21,3 +21,11 @@ export const isUndefined = (value) => typeof value === 'undefined';
  * @returns {String}
  */
 export const classNames = (names) => names.filter((className) => !!className).join(' ');
+
+/**
+ * Tells us if input looks like promise or not.
+ *
+ * @param {Object} obj
+ * @returns {Boolean}
+ */
+export const isPromise = (obj) => typeof obj === 'object' && obj && obj.then instanceof Function;
