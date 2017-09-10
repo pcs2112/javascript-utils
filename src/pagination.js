@@ -6,7 +6,7 @@
  * @param {Number} limit - Items per page
  * @return {Number}
  */
-export const getCurrentPageFromOffset = (offset, limit) => (offset + limit) / limit;
+export const getCurrentPageFromOffset = (offset, limit) => Math.ceil((offset + limit) / limit);
 
 /**
  * Returns the number of pages from a limit per page.
