@@ -5,7 +5,7 @@ import { isEmpty } from './utils';
  * @param {Number} num
  * @returns {String}
  */
-export const formatNumber = (num) => num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+export const formatNumber = num => num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
 /**
  * Formats the specified number to currency.
@@ -13,7 +13,7 @@ export const formatNumber = (num) => num.toString().replace(/(\d)(?=(\d{3})+(?!\
  * @param {Number} num
  * @returns {String}
  */
-export const formatCurrency = (num) => '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+export const formatCurrency = num => `$${num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
 
 /**
  * Returns the location from and address.
@@ -28,23 +28,23 @@ export const formatAddress = (address) => {
 
   let result = '';
   if (address.addressLine1) {
-    result += address.addressLine1 + ', ';
+    result += `${address.addressLine1}, `;
   }
 
   if (address.addressLine2) {
-    result += address.addressLine2 + ', ';
+    result += `${address.addressLine2}, `;
   }
 
   if (address.city) {
-    result += address.city + ', ';
+    result += `${address.city}, `;
   }
 
   if (address.state) {
-    result += address.state + ' ';
+    result += `${address.state}, `;
   }
 
   if (address.zip) {
-    result += address.zip + '';
+    result += `${address.zip}, `;
   }
 
   return result;
@@ -67,7 +67,7 @@ export const formatBytes = (bytes, decimals = 0) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  return `${parseFloat((bytes / (k ** i)).toFixed(dm))} ${sizes[i]}`;
 };
 
 /**
@@ -84,18 +84,19 @@ export const formatSecondsToTime = (originalSeconds) => {
   let time = '';
 
   if (hours !== 0) {
-    time = hours + '+';
+    time = `${hours}:`;
   }
 
   if (minutes !== 0 || time !== '') {
-    minutes = (minutes < 10 && time !== '') ? '0' + minutes : String(minutes);
-    time += minutes + ':';
+    minutes = (minutes < 10 && time !== '') ? `0${minutes}` : String(minutes);
+    time += `${minutes}:`;
   }
 
   if (time === '') {
-    time = '0:' + (seconds < 10 ? '0' + seconds : seconds);
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    time = `0:${formattedSeconds}`;
   } else {
-    time += (seconds < 10) ? '0' + seconds : String(seconds);
+    time += (seconds < 10) ? `0${seconds}` : String(seconds);
   }
 
   return time;
@@ -108,7 +109,7 @@ export const formatSecondsToTime = (originalSeconds) => {
  */
 export const formatPhoneNumber = (value) => {
   const numbers = value.replace(/\D/g, '');
-  const char = {0: '(', 3: ') ', 6: ' - '};
+  const char = { 0: '(', 3: ') ', 6: ' - ' };
 
   let formattedValue = '';
   for (let i = 0; i < numbers.length; i++) {
@@ -147,7 +148,7 @@ export const linkify = (str) => {
  * @param {String} str
  * @returns {String}
  */
-export const textToHtml = (str) => !isEmpty(str) ? linkify(str.replace(/(?:\r\n|\r|\n)/g, '<br />')) : '';
+export const textToHtml = str => (!isEmpty(str) ? linkify(str.replace(/(?:\r\n|\r|\n)/g, '<br />')) : '');
 
 /**
  * Truncates a string and appends an ellipsis at the end of the string.
@@ -158,7 +159,7 @@ export const textToHtml = (str) => !isEmpty(str) ? linkify(str.replace(/(?:\r\n|
  * @returns {String}
  */
 export const truncateText = (str, limit = 50, ellipsis = '...') =>
-  str.length > limit ? str.substring(0, limit) + ellipsis : str;
+  (str.length > limit ? str.substring(0, limit) + ellipsis : str);
 
 /**
  * Formats a credit card number to only show the last
@@ -168,12 +169,12 @@ export const truncateText = (str, limit = 50, ellipsis = '...') =>
  * @returns {String}
  */
 export const formatCreditCardNumber = (creditCardNumber) => {
-  const result = ('' + creditCardNumber).trim().slice(-4);
-  if (result.length !== 4) {
+  const lastFour = (` ${creditCardNumber}`).trim().slice(-4);
+  if (lastFour.length !== 4) {
     return '';
   }
 
-  return `xxxx-xxxx-xxxx-${result}`;
+  return `xxxx-xxxx-xxxx-${lastFour}`;
 };
 
 /**
@@ -187,7 +188,7 @@ export const formatCreditCardNumber = (creditCardNumber) => {
 export const getFullName = (firstName, lastName) => {
   let fullName = firstName;
   if (!isEmpty(lastName)) {
-    fullName += ' ' + lastName;
+    fullName += ` ${lastName}`;
   }
 
   return fullName;

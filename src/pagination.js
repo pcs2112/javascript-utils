@@ -15,7 +15,7 @@ export const getCurrentPageFromOffset = (offset, limit) => Math.ceil((offset + l
  * @param {Number} total - Total items
  * @return {Number}
  */
-export const getTotalPagesFromLimit = (limit, total) => total < 1 ? 0 : Math.ceil(total / limit);
+export const getTotalPagesFromLimit = (limit, total) => (total < 1 ? 0 : Math.ceil(total / limit));
 
 /**
  * Returns the offset from the specified page number.

@@ -4,8 +4,8 @@ const getPopupOffset = ({ width, height }) => {
   const wLeft = window.screenLeft ? window.screenLeft : window.screenX;
   const wTop = window.screenTop ? window.screenTop : window.screenY;
 
-  const left = wLeft + (window.innerWidth / 2) - (width / 2);
-  const top = wTop + (window.innerHeight / 2) - (height / 2);
+  const left = wLeft + (window.innerWidth / 2) - (width / 2); // eslint-disable-line
+  const top = wTop + (window.innerHeight / 2) - (height / 2); // eslint-disable-line
 
   return { top, left };
 };
@@ -32,6 +32,5 @@ const getPopupDimensions = (provider) => {
   return `width=${width},height=${height},top=${top},left=${left}`;
 };
 
-export default (provider, url, name = '_blank') => {
-  return window.open(url, name, provider !== 'newTab' ? `${settings},${getPopupDimensions(provider)}` : '');
-};
+export default (provider, url, name = '_blank') =>
+  window.open(url, name, provider !== 'newTab' ? `${settings},${getPopupDimensions(provider)}` : '');

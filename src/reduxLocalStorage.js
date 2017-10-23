@@ -79,8 +79,8 @@ export const removeState = (stateSlices) => {
     const currentState = getItem(STATE_KEY_NAME);
     for (let i = 0; i < stateSlices.length; i++) {
       const stateSlice = stateSlices[i];
-      if (currentState.hasOwnProperty(stateSlice)) {
-        delete(currentState[stateSlice]);
+      if (Object.prototype.hasOwnProperty.call(currentState, stateSlice)) {
+        delete (currentState[stateSlice]);
       }
 
       saveState(currentState);

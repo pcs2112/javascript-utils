@@ -8,7 +8,7 @@ const DBL_EPSILON = 2.2204460492503131e-16;
  * @param {String|Number} value
  * @returns {Boolean}
  */
-export const isNumber = (value) => !isEmpty(value) && !isNaN(parseFloat(value)) && isFinite(value);
+export const isNumber = value => (!isEmpty(value) && !isNaN(parseFloat(value)) && isFinite(value));
 
 /**
  * Converts numerical string to a Number.
@@ -16,7 +16,7 @@ export const isNumber = (value) => !isEmpty(value) && !isNaN(parseFloat(value)) 
  * @param {String|Number} value
  * @returns {Number}
  */
-export const normalizeInputToInteger = (value) => isNumber(value) ? parseInt(value, 10) : value;
+export const normalizeInputToInteger = value => (isNumber(value) ? parseInt(value, 10) : value);
 
 /**
  * Converts numerical string to a Number.
@@ -24,7 +24,7 @@ export const normalizeInputToInteger = (value) => isNumber(value) ? parseInt(val
  * @param {String|Number} value
  * @returns {Number}
  */
-export const normalizeInputToFloat = (value) => isNumber(value) ? parseFloat(value) : value;
+export const normalizeInputToFloat = value => (isNumber(value) ? parseFloat(value) : value);
 
 /**
  * Compares two floats for equality.
@@ -66,7 +66,7 @@ export const almostEqual = (a, b, absoluteError = undefined, relativeError = und
  * @returns {Number}
  */
 export const calculateSquareFeet = (length, width) =>
-  isNumber(length) && isNumber(width) ? length * width : 0;
+  (isNumber(length) && isNumber(width) ? length * width : 0);
 
 /**
  * Returns the calculated cubic feet based on the specified length, width and height.
@@ -77,7 +77,7 @@ export const calculateSquareFeet = (length, width) =>
  * @returns {Number}
  */
 export const calculateCubicFeet = (length, width, height) =>
-  isNumber(length) && isNumber(width) && isNumber(height) ? length * width * height : 0;
+  (isNumber(length) && isNumber(width) && isNumber(height) ? length * width * height : 0);
 
 /**
  * Calculates a listing's cost.
@@ -86,12 +86,13 @@ export const calculateCubicFeet = (length, width, height) =>
  * @param {Number} length
  * @param {Number} width
  */
-export const calculateEarnings = (sqrFeetCost, length, width) => calculateSquareFeet(length, width) * sqrFeetCost;
+export const calculateEarnings = (sqrFeetCost, length, width) =>
+  calculateSquareFeet(length, width) * sqrFeetCost;
 
 /**
  * Returns a random number of the specified digit length.
  * @param {Number} length
  * @returns {Number}
  */
-export const getRandomNumber = (length) =>
-  Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1));
+export const getRandomNumber = length =>
+  Math.floor((10 ** (length - 1)) + Math.random() * 9 * (10 ** (length - 1))); // eslint-disable-line

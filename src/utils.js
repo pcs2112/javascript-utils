@@ -4,7 +4,7 @@
  * @param {String|undefined|null} value
  * @returns {Boolean}
  */
-export const isEmpty = (value) => value === undefined || value === null || value === '';
+export const isEmpty = value => value === undefined || value === null || value === '';
 
 /**
  * Checks the specified value is undefined.
@@ -12,7 +12,7 @@ export const isEmpty = (value) => value === undefined || value === null || value
  * @param {String|Number|Object|undefined|null} value
  * @returns {Boolean}
  */
-export const isUndefined = (value) => typeof value === 'undefined';
+export const isUndefined = value => typeof value === 'undefined';
 
 /**
  * Joins an array of css class names and returns the concatenated class name.
@@ -20,7 +20,7 @@ export const isUndefined = (value) => typeof value === 'undefined';
  * @param {Array} names
  * @returns {String}
  */
-export const classNames = (names) => names.filter((className) => !!className).join(' ');
+export const classNames = names => names.filter(className => !!className).join(' ');
 
 /**
  * Tells us if input looks like promise or not.
@@ -28,4 +28,4 @@ export const classNames = (names) => names.filter((className) => !!className).jo
  * @param {Object} obj
  * @returns {Boolean}
  */
-export const isPromise = (obj) => typeof obj === 'object' && obj && obj.then instanceof Function;
+export const isPromise = obj => typeof obj === 'object' && obj && obj.then instanceof Function;

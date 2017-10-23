@@ -1,37 +1,39 @@
+/* eslint consistent-return: 0 */
 import moment from 'moment';
 import { isEmpty } from './utils';
 import { isNumber } from './number';
 
-const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0 /* first error */ ];
+const join = rules => (value, data) =>
+  rules.map(rule => rule(value, data)).filter(error => !!error)[0/* first error */];
 
 /**
  * Default validation messages
  */
 const validationMessages = {
-  email: `Invalid email address`,
-  required: `Required`,
-  minLength: `Must be at least {min} characters`,
-  maxLength: `Must be no more than {max} characters`,
-  integer: `Must be an integer`,
-  oneOf: `Must be one of: {values}`,
-  match: `Do not match`,
-  fullName: `The name is invalid`,
-  validateDate: `The date is invalid`,
-  validDateRange: `The date must be a date after the starting date.`,
-  numericLength: `Must be a number of {length} characters`,
-  numeric: `Must be a valid number`,
-  pattern: `The value does not match the pattern`,
-  minNumber: `Must be greater or equal to {min}`,
-  maxNumber: `Must be less or equal to {max}`,
-  minDate: `Must be after or on {min}`,
-  maxDate: `Must be before or on {min}`
+  email: 'Invalid email address',
+  required: 'Required',
+  minLength: 'Must be at least {min} characters',
+  maxLength: 'Must be no more than {max} characters',
+  integer: 'Must be an integer',
+  oneOf: 'Must be one of: {values}',
+  match: 'Do not match',
+  fullName: 'The name is invalid',
+  validateDate: 'The date is invalid',
+  validDateRange: 'The date must be a date after the starting date.',
+  numericLength: 'Must be a number of {length} characters',
+  numeric: 'Must be a valid number',
+  pattern: 'The value does not match the pattern',
+  minNumber: 'Must be greater or equal to {min}',
+  maxNumber: 'Must be less or equal to {max}',
+  minDate: 'Must be after or on {min}',
+  maxDate: 'Must be before or on {min}'
 };
 
 /**
  * Email validation function.
  * @param {String} msg
  */
-export const email = (msg) => (value) => {
+export const email = msg => (value) => {
   if (!isEmpty(value) && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
     return msg || validationMessages.email;
   }
@@ -41,7 +43,7 @@ export const email = (msg) => (value) => {
  * Required value validation function.
  * @param {String} msg
  */
-export const required = (msg) => (value) => {
+export const required = msg => (value) => {
   const isArray = Array.isArray(value);
   if ((isArray && value.length < 1) || (!isArray && isEmpty(value))) {
     return msg || validationMessages.required;
@@ -74,7 +76,7 @@ export const maxLength = (max, msg) => (value) => {
  * Integer validation function.
  * @param {String} msg
  */
-export const integer = (msg) => (value) => {
+export const integer = msg => (value) => {
   if (!Number.isInteger(Number(value))) {
     return msg || validationMessages.integer;
   }
@@ -84,7 +86,7 @@ export const integer = (msg) => (value) => {
  * Number validator.
  * @param {String} msg
  */
-export const numeric = (msg) => (value) => {
+export const numeric = msg => (value) => {
   if (!isNumber(value)) {
     return msg || validationMessages.numeric;
   }
@@ -107,7 +109,7 @@ export const pattern = (regex, msg) => (value) => {
  * @param {String} msg
  */
 export const oneOf = (enumeration, msg) => (value) => {
-  if (!~enumeration.indexOf(value)) {
+  if (!~enumeration.indexOf(value)) { // eslint-disable-line
     return (msg || validationMessages.oneOf).replace('{values}', enumeration.join(', '));
   }
 };
@@ -127,7 +129,7 @@ export const match = (field, msg) => (value, data) => {
  * Validates a name contains first name and last name.
  * @param {String} msg
  */
-export const fullName = (msg) => (value) => {
+export const fullName = msg => (value) => {
   if (!/^[A-z ]+$/.test(value)) {
     return msg || validationMessages.fullName;
   }
@@ -165,12 +167,12 @@ export const validDateRange = (field, dateFormat, msg) => (value, data) => {
  */
 export const minDate = (minDateValue, dateFormat, msg) => (value) => {
   if (isEmpty(value)) {
-    return `Enter a valid date`;
+    return 'Enter a valid date';
   }
 
   const date = moment(value, dateFormat);
   if (!date.isValid()) {
-    return `Enter a valid date`;
+    return 'Enter a valid date';
   }
 
   const min = moment(minDateValue, dateFormat);
@@ -187,12 +189,12 @@ export const minDate = (minDateValue, dateFormat, msg) => (value) => {
  */
 export const maxDate = (maxDateValue, dateFormat, msg) => (value) => {
   if (isEmpty(value)) {
-    return `Enter a valid date`;
+    return 'Enter a valid date';
   }
 
   const date = moment(value, dateFormat);
   if (!date.isValid()) {
-    return `Enter a valid date`;
+    return 'Enter a valid date';
   }
 
   const max = moment(maxDateValue, dateFormat);
@@ -207,7 +209,7 @@ export const maxDate = (maxDateValue, dateFormat, msg) => (value) => {
  * @param {String} msg
  */
 export const numericLength = (length, msg) => (value) => {
-  const normalizedValue = value + '';
+  const normalizedValue = `${value}`;
   if (isEmpty(normalizedValue) || !isNumber(normalizedValue) || normalizedValue.length !== length) {
     return (msg || validationMessages.numericLength).replace('{length}', numericLength);
   }
@@ -220,7 +222,7 @@ export const numericLength = (length, msg) => (value) => {
  */
 export const minNumber = (min, msg) => (value) => {
   if (isEmpty(value) || !isNumber(value)) {
-    return `Please enter a number`;
+    return 'Please enter a number';
   }
 
   if (value < min) {
@@ -235,7 +237,7 @@ export const minNumber = (min, msg) => (value) => {
  */
 export const maxNumber = (max, msg) => (value) => {
   if (isEmpty(value) || !isNumber(value)) {
-    return `Please enter a number`;
+    return 'Please enter a number';
   }
 
   if (value > max) {
@@ -243,10 +245,10 @@ export const maxNumber = (max, msg) => (value) => {
   }
 };
 
-export const createValidator = (rules) => (data = {}) => {
+export const createValidator = rules => (data = {}) => {
   const errors = {};
   Object.keys(rules).forEach((key) => {
-    const rule = join([].concat(rules[key])); // concat enables both functions and arrays of functions
+    const rule = join([].concat(rules[key]));
     const error = rule(data[key], data);
     if (error) {
       errors[key] = error;

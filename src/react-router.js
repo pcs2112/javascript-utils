@@ -34,8 +34,8 @@ export const composeEnterHooksParallel = (hooks) => {
  *
  * @param {Array} hooks - Array of hook functions
  */
-export const composeEnterHooksSeries = (hooks) => (nextState, replace, next) => {
-  (function executeHooksSynchronously(remainingHooks) {
+export const composeEnterHooksSeries = hooks => (nextState, replace, next) => {
+  (function executeHooksSynchronously(remainingHooks) { // eslint-disable-line
     if (!remainingHooks.length) {
       return next();
     }

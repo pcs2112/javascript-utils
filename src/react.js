@@ -3,5 +3,5 @@
  * @param {Object} WrappedComponent
  * @returns {String}
  */
-export const getDisplayName = (WrappedComponent) =>
+export const getDisplayName = WrappedComponent =>
   WrappedComponent.displayName || WrappedComponent.name || 'Component';

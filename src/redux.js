@@ -9,7 +9,7 @@ import { getTotalPagesFromLimit, getCurrentPageFromOffset } from './pagination';
  * @returns {Function}
  */
 export const createReducer = (initialState, handlers) => (state = initialState, action) => {
-  if (handlers.hasOwnProperty(action.type)) {
+  if (Object.prototype.hasOwnProperty.call(handlers, action.type)) {
     return handlers[action.type](state, action);
   }
   return state;
@@ -22,7 +22,7 @@ export const createReducer = (initialState, handlers) => (state = initialState, 
  * @param {Array} argNames - Argument names used by the action
  */
 export const createAction = (type, ...argNames) => (...args) => {
-  const action = Array.isArray(type) ? { types: [ ...type ] } : { type };
+  const action = Array.isArray(type) ? { types: [...type] } : { type };
   argNames.forEach((arg, index) => {
     action[argNames[index]] = args[index];
   });

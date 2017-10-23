@@ -1,7 +1,7 @@
 import { isEmpty } from './utils';
 
 export const addProtocol = (url, protocol = 'http') => {
-  if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+  if (!/^(?:f|ht)tps?:\/\//.test(url)) {
     return `${protocol}://${url}`;
   }
 
@@ -14,9 +14,7 @@ export const addProtocol = (url, protocol = 'http') => {
  * @param {String} url
  * @returns {String}
  */
-export const getUrlPath = (url) => {
-  return url.replace(/^.*\/\/[^/]+/, '');
-};
+export const getUrlPath = url => url.replace(/^.*\/\/[^/]+/, '');
 
 /**
  * Turns an object's keys into a query string.
@@ -26,15 +24,15 @@ export const getUrlPath = (url) => {
  */
 export const getQueryString = (params) => {
   let str = '';
-  for (const key in params) {
+  Object.keys(params).forEach((key) => {
     if (!isEmpty(params[key])) {
       if (str !== '') {
         str += '&';
       }
 
-      str += key + '=' + encodeURIComponent(params[key]);
+      str += `${key}=${encodeURIComponent(params[key])}`;
     }
-  }
+  });
 
   return str;
 };
@@ -68,7 +66,7 @@ export const createUrl = (path, params) => {
 export const removeURLParameter = (url, parameter) => {
   const urlParts = url.split('?');
   if (urlParts.length >= 2) {
-    const prefix = encodeURIComponent(parameter) + '=';
+    const prefix = `${encodeURIComponent(parameter)}=`;
     const pars = urlParts[1].split(/[&;]/g);
 
     // Reverse iteration as may be destructive
@@ -78,7 +76,7 @@ export const removeURLParameter = (url, parameter) => {
       }
     }
 
-    return urlParts[0] + (pars.length > 0 ? '?' + pars.join('&') : '');
+    return urlParts[0] + (pars.length > 0 ? `?${pars.join('&')}` : '');
   }
 
   return url;
@@ -102,7 +100,7 @@ export const getAllUrlParams = (url) => {
     obj = {};
 
     // stuff after # is not part of query string, so get rid of it
-    queryString = queryString.split('#')[0];
+    queryString = queryString.split('#')[0]; // eslint-disable-line
 
     // split our query string into its component parts
     const arr = queryString.split('&');
@@ -135,7 +133,7 @@ export const getAllUrlParams = (url) => {
           // put the value at that index number
           obj[paramName][paramNum] = paramValue;
         }
-      } else {  // if param name doesn't exist yet, set it
+      } else { // if param name doesn't exist yet, set it
         obj[paramName] = paramValue;
       }
     }
