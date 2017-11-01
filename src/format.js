@@ -26,28 +26,28 @@ export const formatAddress = (address) => {
     return '';
   }
 
-  let result = '';
+  const addressParts = [];
   if (address.addressLine1) {
-    result += `${address.addressLine1}, `;
+    addressParts.push(address.addressLine1);
   }
 
   if (address.addressLine2) {
-    result += `${address.addressLine2}, `;
+    addressParts.push(address.addressLine2);
   }
 
   if (address.city) {
-    result += `${address.city}, `;
+    addressParts.push(address.city);
   }
 
   if (address.state) {
-    result += `${address.state}, `;
+    addressParts.push(address.state);
   }
 
   if (address.zip) {
-    result += `${address.zip}, `;
+    addressParts.push(address.zip);
   }
 
-  return result;
+  return addressParts.join(', ');
 };
 
 /**
