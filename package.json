@@ -3,7 +3,7 @@
   "description": "Collection of Javascript utils for your application.",
   "author": "Vince Chavez <vchavez92780@gmail.com> (http://github.com/pcs2112)",
   "license": "MIT",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "repository": {
     "type": "git",
     "url": "https://github.com/pcs2112/javascript-utils"
@@ -21,7 +21,6 @@
     "build:lib": "babel src --out-dir lib"
   },
   "dependencies": {
-    "javascript-utils": "^1.2.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
