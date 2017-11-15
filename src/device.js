@@ -40,3 +40,26 @@ export const getWindowWidth = () => {
   const g = d.getElementsByTagName('body')[0];
   return w.innerWidth || e.clientWidth || g.clientWidth;
 };
+
+
+/**
+ * Returns the browser's document hidden property name.
+ *
+ * @returns {String}
+ */
+export const documentHiddenPropertyName = () => {
+  let hidden = null;
+  if (!isDOMAvailable()) {
+    return hidden;
+  }
+
+  if (typeof document.hidden !== 'undefined') {
+    hidden = 'hidden';
+  } else if (typeof document.msHidden !== 'undefined') {
+    hidden = 'msHidden';
+  } else if (typeof document.webkitHidden !== 'undefined') {
+    hidden = 'webkitHidden';
+  }
+
+  return hidden;
+};
