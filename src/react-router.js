@@ -10,7 +10,14 @@ import { matchRoutes } from 'react-router-config';
  */
 
 export const reactRouterFetch = (routes, location, options) => {
-  const branch = matchRoutes(routes, typeof location === 'string' ? location : location.pathname);
+  let pathname;
+  if (typeof location === 'string') {
+    pathname = location.indexOf('?') > -1 ? location.split('?')[0] : location;
+  } else {
+    pathname = location.pathname; // eslint-disable-line
+  }
+
+  const branch = matchRoutes(routes, pathname);
 
   if (branch.length < 1) {
     return Promise.resolve();
