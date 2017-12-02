@@ -24,7 +24,6 @@
     "lodash": "^4.17.4",
     "moment": "^2.19.3",
     "prop-types": "^15.5.10",
-    "react": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "redux-object": "^0.5.3"
@@ -45,6 +44,10 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
     "mocha": "^4.0.1",
+    "react": "^16.2.0",
     "webpack": "^3.9.1"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0-0 || ^16.0.0-0"
   }
 }
