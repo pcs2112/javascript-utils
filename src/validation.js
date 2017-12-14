@@ -1,5 +1,6 @@
 /* eslint consistent-return: 0 */
 import moment from 'moment';
+import { parseFullName } from 'parse-full-name';
 import { isEmpty } from './utils';
 import { isNumber } from './number';
 
@@ -130,7 +131,12 @@ export const match = (field, msg) => (value, data) => {
  * @param {String} msg
  */
 export const fullName = msg => (value) => {
-  if (!/^[A-z ]+$/.test(value)) {
+  if (isEmpty(value)) {
+    return msg || validationMessages.fullName;
+  }
+
+  const name = parseFullName(value || '');
+  if (isEmpty(name.first) || isEmpty(name.last)) {
     return msg || validationMessages.fullName;
   }
 };
