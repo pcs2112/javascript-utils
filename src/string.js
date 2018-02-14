@@ -49,3 +49,14 @@ export const replaceArray = (value, search, replace) => {
 
   return replaceString;
 };
+
+/**
+ * Uppercase the first character of each word in a string
+ * @param {String} value
+ *
+ * @returns {String}
+ */
+export const ucwords = (value) => {
+  const str = `${value}`;
+  return str.replace(/^(.)|\s+(.)/g, $1 => $1.toUpperCase());
+};
