@@ -60,3 +60,21 @@ export const ucwords = (value) => {
   const str = `${value}`;
   return str.replace(/^(.)|\s+(.)/g, $1 => $1.toUpperCase());
 };
+
+
+/**
+ * Returns true if a string contains at least one number
+ * @param {String} string
+ *
+ * @returns {boolean}
+ */
+export const hasNumber = (string) => {
+  let result = false;
+  const numbers = [...Array(10).keys()];
+  numbers.forEach((num) => {
+    if (string.includes(num)) {
+      result = true;
+    }
+  });
+  return result;
+};
