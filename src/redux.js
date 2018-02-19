@@ -51,14 +51,25 @@ export const getReduxObject = (data, key, index = 0) => {
  *
  * @param {Object} data
  * @param {String} key
+ * @param {String|Boolean} meta
  * @returns {Array}
  */
-export const getReduxObjectArray = (data, key) => {
+export const getReduxObjectArray = (data, key, meta = false) => {
   if (!data || !data[key]) {
     return [];
   }
 
-  return build(data, key, null);
+  let normalizedMeta;
+  if (typeof meta === 'boolean') {
+    if (meta) {
+      normalizedMeta = Object.keys(data.meta)[0]; // eslint-disable-line
+    }
+  } else if (meta) {
+    normalizedMeta = meta;
+  }
+
+  return build(data, key, normalizedMeta
+    ? data.meta[normalizedMeta].data.map(item => item.id) : null);
 };
 
 /**
