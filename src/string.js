@@ -78,3 +78,19 @@ export const hasNumber = (string) => {
   });
   return result;
 };
+
+
+/**
+ * Converts String to slug
+ * @param {String} string
+ *
+ * @returns slug
+ */
+
+export const convertToSlug = (value) => {
+  return value
+    .toLowerCase()
+    .replace(/[^\w ]+/g,'')
+    .replace(/ +/g,'-');
+};
+
