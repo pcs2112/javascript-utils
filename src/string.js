@@ -1,3 +1,5 @@
+import { isNumber } from './number';
+
 /**
  * Converts the first letter of a string to uppercase.
  *
@@ -63,20 +65,19 @@ export const ucwords = (value) => {
 
 
 /**
- * Returns true if a string contains at least one number
+ * Checks to see if string has at least n amount of numbers
  * @param {String} string
- *
+ * @param {Integer} number
  * @returns {boolean}
  */
-export const hasNumber = (string) => {
-  let result = false;
-  const numbers = [...Array(10).keys()];
-  numbers.forEach((num) => {
-    if (string.includes(num)) {
-      result = true;
+export const hasNumber = (string, number) => {
+  let count = 0;
+  [...string].forEach((char) => {
+    if (isNumber(char)) {
+      count++;
     }
   });
-  return result;
+  return count >= number;
 };
 
 
@@ -107,3 +108,38 @@ export const encodeHtmlEntity = (str) => {
   }
   return buf.join('');
 };
+
+/**
+ * Checks to see if string has at least n amount of numbers
+ * @param {String} string
+ * @param {Integer} number
+ * @returns boolean
+ */
+
+export const hasSpecialChar = (string, number) => {
+  let count = 0;
+  const specialCharacters = [...'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'];
+  specialCharacters.forEach((symbol) => {
+    if (string.includes(symbol)) {
+      count++;
+    }
+  });
+  return count >= number;
+}
+
+/**
+ * Checks to see if strings length is at least n
+ * @param {String} string
+ * @param {String} string
+ * @returns boolean
+ */
+
+export const isMinLength = (string, number) => string.length >= number;
+
+/**
+ * Checks to see if string has a Capital letter in it
+ * @param {String} string
+ * @returns boolean
+ */
+
+export const hasCapital = string => string.toLowerCase() !== string;
