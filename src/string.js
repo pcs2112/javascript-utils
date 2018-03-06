@@ -63,16 +63,15 @@ export const ucwords = (value) => {
   return str.replace(/^(.)|\s+(.)/g, $1 => $1.toUpperCase());
 };
 
-
 /**
  * Checks to see if string has at least n amount of numbers
- * @param {String} string
+ * @param {String} value
  * @param {Integer} number
  * @returns {boolean}
  */
-export const hasNumber = (string, number) => {
+export const hasNumbers = (value, number) => {
   let count = 0;
-  [...string].forEach((char) => {
+  [...value].forEach((char) => {
     if (isNumber(char)) {
       count++;
     }
@@ -80,66 +79,72 @@ export const hasNumber = (string, number) => {
   return count >= number;
 };
 
+/**
+ * Converts the specifed value to a slug.
+ *
+ * @param {String} value
+ * @returns {String}
+ */
+export const convertToSlug = value => value.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
 
 /**
- * Converts String to slug
- * @param {String} string
+ * Decodes all the html entities in the specified value.
  *
- * @returns slug
+ * @param {String} value
+ * @returns {String}
  */
+export const decodeHtmlEntities = value => value.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
 
-export const convertToSlug = (value) => {
-  return value
-    .toLowerCase()
-    .replace(/[^\w ]+/g,'')
-    .replace(/ +/g,'-');
-};
-
-export const decodeHtmlEntity = (str) => {
-  return str.replace(/&#(\d+);/g, (match, dec) => {
-    return String.fromCharCode(dec);
-  });
-};
-
-export const encodeHtmlEntity = (str) => {
+/**
+ * Encodes all the html entities in the specified value.
+ *
+ * @param {String} value
+ * @returns {String}
+ */
+export const encodeHtmlEntity = (value) => {
   const buf = [];
-  for (let i = str.length - 1; i >= 0; i--) {
-    buf.unshift(['&#', str[i].charCodeAt(), ';'].join(''));
+  for (let i = value.length - 1; i >= 0; i--) {
+    buf.unshift(['&#', value[i].charCodeAt(0), ';'].join(''));
   }
+
   return buf.join('');
 };
 
 /**
- * Checks to see if string has at least n amount of numbers
- * @param {String} string
- * @param {Integer} number
+ * Checks to see if value has at least n amount of numbers.
+ *
+ * @param {String} value
+ * @param {Number} number
  * @returns boolean
  */
-
-export const hasSpecialChar = (string, number) => {
+export const hasSpecialChars = (value, number) => {
   let count = 0;
   const specialCharacters = [...'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'];
   specialCharacters.forEach((symbol) => {
-    if (string.includes(symbol)) {
+    if (value.includes(symbol)) {
       count++;
     }
   });
+
   return count >= number;
-}
+};
 
 /**
- * Checks to see if strings length is at least n
- * @param {String} string
- * @param {String} string
- * @returns boolean
+ * Checks the specified value's length is greater or equal than
+ * the specified length.
+ *
+ * @param {String} value
+ * @param {Number} minLength
+ * @returns {Boolean}
  */
-
-export const isMinLength = (string, number) => string.length >= number;
+export const isMinLength = (value, minLength) => value.length >= minLength;
 
 /**
- * Checks to see if string has a Capital letter in it
- * @param {String} string
- * @returns boolean
+ * Checks the specified value's is less or equal than
+ * the specified length.
+ *
+ * @param {String} value
+ * @param {Number} maxLength
+ * @returns {Boolean}
  */
-
-export const hasCapital = string => string.toLowerCase() !== string;
+export const isMaxLength = (value, maxLength) => value.length <= maxLength;
