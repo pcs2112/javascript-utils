@@ -2,7 +2,7 @@ import moment from 'moment';
 import { parseFullName } from 'parse-full-name';
 import { isEmpty } from './utils';
 import { isNumber } from './number';
-import { isMaxLength, isMinLength, hasNumbers, hasSpecialChars } from './string';
+import { isMaxLength, isMinLength, hasNumbers, hasSpecialChars, replaceArray } from './string';
 
 const join = rules => (value, data) =>
   rules.map(rule => rule(value, data)).filter(error => !!error)[0];
@@ -29,7 +29,9 @@ const defaultMessages = {
   minDate: 'Must be after or on {min}.',
   maxDate: 'Must be before or on {min}.',
   numbersRequired: 'Must have at least {length} number(s).',
-  specialCharsRequired: 'Must have at least {length} special character(s).'
+  specialCharsRequired: 'Must have at least {length} special character(s).',
+  passwordValidator: `Password needs to have {specialCharsLength} special character(s), at least {numbersLength} 
+  number(s), and needs to be a minimum length of {passwordLength} character(s) or longer.`
 };
 
 /**
@@ -66,9 +68,9 @@ export const required = msg => (value) => {
  * String min length validation function.
  *
  * @param {Number} min - Minimum number of characters required
- * @param {String} msg
+ * @param {String|undefined} msg
  */
-export const minLength = (min, msg) => (value) => {
+export const minLength = (min, msg = undefined) => (value) => {
   let error = '';
 
   if (!isEmpty(value) && !isMinLength(value, min)) {
@@ -329,9 +331,9 @@ export const maxNumber = (max, msg) => (value) => {
  * Checks a value has at least the amount of numbers specified by length.
  *
  * @param {Number} length
- * @param {String} msg
+ * @param {String|undefined} msg
  */
-export const numbersRequired = (length, msg) => (value) => {
+export const numbersRequired = (length, msg = undefined) => (value) => {
   let error = '';
 
   if (isEmpty(value) || !hasNumbers(value, length)) {
@@ -345,9 +347,9 @@ export const numbersRequired = (length, msg) => (value) => {
  * Checks a value has at least the amount of special characters specified by length.
  *
  * @param {Number} length
- * @param {String} msg
+ * @param {String|undefined} msg
  */
-export const specialCharsRequired = (length, msg) => (value) => {
+export const specialCharsRequired = (length, msg = undefined) => (value) => {
   let error = '';
 
   if (isEmpty(value) || !hasSpecialChars(value, length)) {
@@ -356,6 +358,33 @@ export const specialCharsRequired = (length, msg) => (value) => {
 
   return error;
 };
+
+/**
+ * Creates a validation function using the specified rules.
+ *
+ * @param {Integer} specialCharsLength
+ * @param {Integer} numbersLength
+ * @param {Integer} passwordLength
+ * @param {String} msg
+ */
+export const passwordValidator = (specialCharsLength, numbersLength, passwordLength, msg) =>
+  (value) => {
+    let error = '';
+    const specialCharsValidation = specialCharsRequired(specialCharsLength);
+    const numbersLengthValidation = numbersRequired(numbersLength);
+    const passwordLengthValidation = minLength(passwordLength);
+    if (specialCharsValidation(value) ||
+        numbersLengthValidation(value) ||
+        passwordLengthValidation(value)) {
+      error = replaceArray(
+        (msg || defaultMessages.passwordValidator),
+        ['{specialCharsLength}', '{numbersLength}', '{passwordLength}'],
+        [specialCharsLength, numbersLength, passwordLength]
+      );
+    }
+
+    return error;
+  };
 
 /**
  * Creates a validation function using the specified rules.

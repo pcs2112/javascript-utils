@@ -119,13 +119,13 @@ export const encodeHtmlEntity = (value) => {
  */
 export const hasSpecialChars = (value, number) => {
   let count = 0;
-  const specialCharacters = [...'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'];
-  specialCharacters.forEach((symbol) => {
-    if (value.includes(symbol)) {
+  const specialCharacters = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+  const stringArray = [...value];
+  stringArray.forEach((char) => {
+    if (specialCharacters.includes(char)) {
       count++;
     }
   });
-
   return count >= number;
 };
 
