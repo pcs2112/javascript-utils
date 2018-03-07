@@ -3,7 +3,7 @@
   "description": "Collection of Javascript utils for your application.",
   "author": "Vince Chavez <vchavez92780@gmail.com> (http://github.com/pcs2112)",
   "license": "MIT",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "repository": {
     "type": "git",
     "url": "https://github.com/pcs2112/javascript-utils"
@@ -24,7 +24,7 @@
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
     "parse-full-name": "^1.2.3",
-    "react-router": "^4.2.0",
+    "react": "^16.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "redux-object": "^0.5.5"
   },
@@ -42,8 +42,5 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
     "mocha": "^5.0.1"
-  },
-  "peerDependencies": {
-    "react": "^15.0.0-0 || ^16.0.0-0"
   }
 }
