@@ -3,7 +3,7 @@
   "description": "Collection of Javascript utils for your application.",
   "author": "Vince Chavez <vchavez92780@gmail.com> (http://github.com/pcs2112)",
   "license": "MIT",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "repository": {
     "type": "git",
     "url": "https://github.com/pcs2112/javascript-utils"
@@ -25,6 +25,7 @@
     "moment": "^2.20.1",
     "parse-full-name": "^1.2.3",
     "react": "^16.2.0",
+    "react-router": "^4.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "redux-object": "^0.5.5"
   },
