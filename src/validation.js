@@ -8,7 +8,7 @@ const join = rules => (value, data) =>
   rules.map(rule => rule(value, data)).filter(error => !!error)[0];
 
 /**
- * Default validation messages
+ * Default validation messages.
  */
 const defaultMessages = {
   email: 'Invalid email address.',
@@ -30,7 +30,7 @@ const defaultMessages = {
   maxDate: 'Must be before or on {min}.',
   numbersRequired: 'Must have at least {length} number(s).',
   specialCharsRequired: 'Must have at least {length} special character(s).',
-  passwordValidator: `Password needs to have {specialCharsLength} special character(s), at least {numbersLength} 
+  passwordValidator: `Must have {specialCharsLength} special character(s), at least {numbersLength} 
   number(s), and needs to be a minimum length of {passwordLength} character(s) or longer.`
 };
 
@@ -367,15 +367,15 @@ export const specialCharsRequired = (length, msg = undefined) => (value) => {
  * @param {Integer} passwordLength
  * @param {String} msg
  */
-export const passwordValidator = (specialCharsLength, numbersLength, passwordLength, msg) =>
-  (value) => {
+export const validPassword = (specialCharsLength, numbersLength, passwordLength, msg) => {
+  const specialCharsValidation = specialCharsRequired(specialCharsLength);
+  const numbersLengthValidation = numbersRequired(numbersLength);
+  const passwordLengthValidation = minLength(passwordLength);
+  return (value) => {
     let error = '';
-    const specialCharsValidation = specialCharsRequired(specialCharsLength);
-    const numbersLengthValidation = numbersRequired(numbersLength);
-    const passwordLengthValidation = minLength(passwordLength);
     if (specialCharsValidation(value) ||
-        numbersLengthValidation(value) ||
-        passwordLengthValidation(value)) {
+      numbersLengthValidation(value) ||
+      passwordLengthValidation(value)) {
       error = replaceArray(
         (msg || defaultMessages.passwordValidator),
         ['{specialCharsLength}', '{numbersLength}', '{passwordLength}'],
@@ -385,6 +385,7 @@ export const passwordValidator = (specialCharsLength, numbersLength, passwordLen
 
     return error;
   };
+};
 
 /**
  * Creates a validation function using the specified rules.

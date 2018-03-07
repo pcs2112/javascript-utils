@@ -24,7 +24,6 @@
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
     "parse-full-name": "^1.2.3",
-    "prop-types": "^15.5.10",
     "react-router": "^4.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "redux-object": "^0.5.5"
@@ -33,20 +32,16 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
-    "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
     "chai": "^4.1.1",
     "eslint": "^4.18.0",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-loader": "^1.0.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
-    "mocha": "^5.0.1",
-    "react": "^16.2.0",
-    "webpack": "^3.11.0"
+    "mocha": "^5.0.1"
   },
   "peerDependencies": {
     "react": "^15.0.0-0 || ^16.0.0-0"
