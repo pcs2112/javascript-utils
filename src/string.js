@@ -148,3 +148,20 @@ export const isMinLength = (value, minLength) => value.length >= minLength;
  * @returns {Boolean}
  */
 export const isMaxLength = (value, maxLength) => value.length <= maxLength;
+
+/**
+ * Shorten a string to less than maxLen characters without truncating words.
+ *
+ * @param {String} value
+ * @param {Number} maxLength
+ * @param {String} ellipsis
+ * @param {String} separator
+ * @returns {*}
+ */
+export const shorten = (value, maxLength, ellipsis = '...', separator = ' ') => {
+  if (value.length <= maxLength) {
+    return value;
+  }
+
+  return value.substr(0, value.lastIndexOf(separator, maxLength)) + ellipsis;
+};
