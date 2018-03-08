@@ -3,7 +3,8 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "rules": {
     "new-cap": 2,
@@ -15,10 +16,14 @@
     "import/no-named-as-default": 2,
     "import/prefer-default-export": 0,
     "comma-dangle": 0,
-    "indent": [2, 2, {"SwitchCase": 1}],
+    "indent": [2, 2, {
+      "SwitchCase": 1
+    }],
     "no-console": 0,
     "no-alert": 0,
-    "id-length": [2, {"min": 1}],
+    "id-length": [2, {
+      "min": 1
+    }],
     "no-var": 0,
     "no-plusplus": 0,
     "no-restricted-globals": 0
