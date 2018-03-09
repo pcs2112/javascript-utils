@@ -111,7 +111,7 @@ export const encodeHtmlEntity = (value) => {
 };
 
 /**
- * Checks to see if value has at least n amount of numbers.
+ * Checks to see if value has at least n amount of special Characters.
  *
  * @param {String} value
  * @param {Number} number
