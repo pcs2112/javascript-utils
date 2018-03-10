@@ -21,7 +21,7 @@
     "prebuild": "yarn run clean",
     "build": "yarn run build:lib",
     "build:lib": "babel src --out-dir lib",
-    "test": "mocha --require babel-polyfill --require babel-register tests/*.js --reporter spec||exit 0"
+    "test": "mocha --require babel-polyfill --require babel-register tests/**/*$MATCH*.js --reporter spec||exit 0"
   },
   "dependencies": {
     "lodash": "^4.17.5",

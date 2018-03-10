@@ -88,29 +88,6 @@ export const hasNumbers = (value, number) => {
 export const convertToSlug = value => value.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
 
 /**
- * Decodes all the html entities in the specified value.
- *
- * @param {String} value
- * @returns {String}
- */
-export const decodeHtmlEntities = value => value.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
-
-/**
- * Encodes all the html entities in the specified value.
- *
- * @param {String} value
- * @returns {String}
- */
-export const encodeHtmlEntity = (value) => {
-  const buf = [];
-  for (let i = value.length - 1; i >= 0; i--) {
-    buf.unshift(['&#', value[i].charCodeAt(0), ';'].join(''));
-  }
-
-  return buf.join('');
-};
-
-/**
  * Checks to see if value has at least n amount of special Characters.
  *
  * @param {String} value

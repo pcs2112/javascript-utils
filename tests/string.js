@@ -8,8 +8,6 @@ import {
   ucwords,
   hasNumbers,
   convertToSlug,
-  decodeHtmlEntities,
-  encodeHtmlEntity,
   hasSpecialChars,
   isMinLength,
   isMaxLength,
@@ -118,32 +116,7 @@ describe('string.js', () => {
       assert.equal(test4, 'testing-with-number-2-and-symbol');
     });
   });
-  /**
-  describe('decodeHtmlEntites()', () => {
-    it('Decodes all the html entities in the specified value.', () => {
-      const test1 = decodeHtmlEntities(encodeHtmlEntity('devin&encalada'));
-      const test2 = decodeHtmlEntities(encodeHtmlEntity('25<32'));
-      const test3 = decodeHtmlEntities(encodeHtmlEntity('this is a test'));
-      const test4 = decodeHtmlEntities(encodeHtmlEntity('Hello World\'s'));
-      assert.equal(test1, 'devin&encalada');
-      assert.equal(test2, '25<32');
-      assert.equal(test3, 'this is a test');
-      assert.equal(test4, 'Hello World\'s');
-    });
-  });
-  describe('encodeHtmlEntites()', () => {
-    it('Encodes all the html entities in the specified value.', () => {
-      const test1 = encodeHtmlEntity('devin&encalada');
-      const test2 = encodeHtmlEntity('25<32');
-      const test3 = encodeHtmlEntity('this is a test');
-      const test4 = encodeHtmlEntity('Hello World\'s');
-      assert.equal(test1, 'devin&#38;encalada');
-      assert.equal(test2, '25&#60;32');
-      assert.equal(test3, 'this&#160;is&#160;a&#160;test');
-      assert.equal(test4, 'Hello&#160;World&#39;s');
-    });
-  });
-  **/
+
   describe('hasSpecialChars()', () => {
     it('Checks to see if value has at least n amount of special characters.', () => {
       const test1 = hasSpecialChars('devin&encalada', 1);
