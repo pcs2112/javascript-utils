@@ -39,12 +39,12 @@ export const formatAddress = (address) => {
     addressParts.push(address.city);
   }
 
-  if (address.state) {
-    addressParts.push(address.state);
+  if (address.region) {
+    addressParts.push(address.region);
   }
 
-  if (address.zip) {
-    addressParts.push(address.zip);
+  if (address.postalCode) {
+    addressParts.push(address.postalCode);
   }
 
   return addressParts.join(', ');
