@@ -1,11 +1,45 @@
 import { isEmpty } from './utils';
 
 /**
- * Formats the specified number.
- * @param {Number} num
+ * Formats a number using fixed-point notation.
+ *
+ * @param {Number} value
+ * @param {Number} precision
  * @returns {String}
  */
-export const formatNumber = num => num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+export const toFixed = (value, precision) => {
+  const k = 10 ** precision;
+  return `${Math.round(value * k) / k}`;
+};
+
+/**
+ * Format a number with grouped thousands and decimal units.
+ *
+ * @param {Number} number The number being formatted.
+ * @param {Number} decimals Sets the number of decimal points.
+ * @param {String} decPoint Sets the separator for the decimal point.
+ * @param {String} thousandsSep Sets the thousands separator.
+ * @returns {String}
+ */
+export const formatNumber = (number, decimals, decPoint = '.', thousandsSep = ',') => {
+  const normalizedNumber = `${number}`.replace(/[^0-9+\-Ee.]/g, '');
+  const n = !isFinite(+normalizedNumber) ? 0 : +normalizedNumber;
+  const precision = !isFinite(+decimals) ? 0 : Math.abs(decimals);
+  let s = '';
+
+  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+  s = (precision ? toFixed(n, precision) : `${Math.round(n)}`).split('.');
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, thousandsSep);
+  }
+
+  if ((s[1] || '').length < precision) {
+    s[1] = s[1] || '';
+    s[1] += new Array((precision - s[1].length) + 1).join('0');
+  }
+
+  return s.join(decPoint);
+};
 
 /**
  * Formats the specified number to currency.
@@ -13,7 +47,7 @@ export const formatNumber = num => num.toString().replace(/(\d)(?=(\d{3})+(?!\d)
  * @param {Number} num
  * @returns {String}
  */
-export const formatCurrency = num => `$${num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
+export const formatCurrency = num => `$${formatNumber(num, 2)}}`;
 
 /**
  * Returns the location from and address.
