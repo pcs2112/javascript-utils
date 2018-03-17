@@ -47,7 +47,7 @@ export const formatNumber = (number, decimals, decPoint = '.', thousandsSep = ',
  * @param {Number} num
  * @returns {String}
  */
-export const formatCurrency = num => `$${formatNumber(num, 2)}}`;
+export const formatCurrency = num => `$${formatNumber(num, 2)}`;
 
 /**
  * Returns the location from and address.
