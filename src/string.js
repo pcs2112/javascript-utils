@@ -133,7 +133,7 @@ export const isMaxLength = (value, maxLength) => value.length <= maxLength;
  * @param {Number} maxLength
  * @param {String} ellipsis
  * @param {String} separator
- * @returns {*}
+ * @returns {String}
  */
 export const shorten = (value, maxLength, ellipsis = '...', separator = ' ') => {
   if (value.length <= maxLength) {
@@ -142,3 +142,24 @@ export const shorten = (value, maxLength, ellipsis = '...', separator = ' ') => 
 
   return value.substr(0, value.lastIndexOf(separator, maxLength)) + ellipsis;
 };
+
+/**
+ * Converts camel case string to dash separated.
+ * @param {String} value
+ * @returns {String}
+ */
+export const toDash = value => value.replace(/([A-Z])/g, $1 => `-${$1.toLowerCase()}`);
+
+/**
+ * Converts camel case string to underscore separated.
+ * @param {String} value
+ * @returns {String}
+ */
+export const toUnderscore = value => value.replace(/([A-Z])/g, $1 => `_${$1.toLowerCase()}`);
+
+/**
+ * Converts string to camel case.
+ * @param {String} value
+ * @returns {String}
+ */
+export const toCamel = value => value.replace(/(-[a-z])/g, $1 => $1.toUpperCase().replace('-', ''));
