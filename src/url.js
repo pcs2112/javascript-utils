@@ -141,3 +141,98 @@ export const getAllUrlParams = (url) => {
 
   return obj;
 };
+
+/**
+ * Adds a leading slash to the specified path.
+ *
+ * @param {String} path
+ * @returns {String}
+ */
+export const addLeadingSlash = path => (path.charAt(0) === '/' ? path : `/${path}`);
+
+/**
+ * Removes the leading slash to the specified path.
+ *
+ * @param {String} path
+ * @returns {String}
+ */
+export const stripLeadingSlash = path => (path.charAt(0) === '/' ? path.substr(1) : path);
+
+/**
+ * Checks if the specified path has the specified prefix.
+ *
+ * @param {String} path
+ * @param {String} prefix
+ * @returns {String}
+ */
+export const hasBasename = (path, prefix) => new RegExp(`^${prefix}(\\/|\\?|#|$)`, 'i').test(path);
+
+/**
+ * Removes the specified prefix from the specified path.
+ *
+ * @param {String} path
+ * @param {String} prefix
+ * @returns {String}
+ */
+export const stripBasename = (path, prefix) =>
+  (hasBasename(path, prefix) ? path.substr(prefix.length) : path);
+
+/**
+ * Removes the trailing slash
+ *
+ * @param {String} path
+ * @returns {String}
+ */
+export const stripTrailingSlash = path => (path.charAt(path.length - 1) === '/' ? path.slice(0, -1) : path);
+
+/**
+ * Parses a url and returns its pathname, search and hash.
+ *
+ * @param {String} path
+ * @returns {{pathname: (*|string), search: string, hash: string}}
+ */
+export const parsePath = (path) => {
+  let pathname = path || '/';
+  let search = '';
+  let hash = '';
+
+  const hashIndex = pathname.indexOf('#');
+  if (hashIndex !== -1) {
+    hash = pathname.substr(hashIndex);
+    pathname = pathname.substr(0, hashIndex);
+  }
+
+  const searchIndex = pathname.indexOf('?');
+  if (searchIndex !== -1) {
+    search = pathname.substr(searchIndex);
+    pathname = pathname.substr(0, searchIndex);
+  }
+
+  return {
+    pathname,
+    search: search === '?' ? '' : search,
+    hash: hash === '#' ? '' : hash
+  };
+};
+
+/**
+ * Creates a url from the specified location data.
+ *
+ * @param {Object} location
+ * @returns {string}
+ */
+export const createPath = (location) => {
+  const { pathname, search, hash } = location;
+
+  let path = pathname || '/';
+
+  if (search && search !== '?') {
+    path += search.charAt(0) === '?' ? search : `?${search}`;
+  }
+
+  if (hash && hash !== '#') {
+    path += hash.charAt(0) === '#' ? hash : `#${hash}`;
+  }
+
+  return path;
+};
