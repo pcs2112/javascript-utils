@@ -23,7 +23,9 @@ const set = (name, value, options = {}) => {
   }
 
   if (opts.maxage) {
-    opts.expires = new Date(+new Date() + opts.maxage);
+    const date = new Date();
+    date.setTime(date.getTime() + (opts.maxage * 24 * 60 * 60 * 1000));
+    opts.expires = date;
   }
 
   if (opts.path) {
