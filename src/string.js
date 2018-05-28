@@ -1,4 +1,5 @@
 import { isNumber } from './number';
+import { isEmpty } from './utils';
 
 /**
  * Converts the first letter of a string to uppercase.
@@ -67,9 +68,13 @@ export const ucwords = (value) => {
  * Checks to see if string has at least n amount of numbers
  * @param {String} value
  * @param {Integer} number
- * @returns {boolean}
+ * @returns {Boolean}
  */
 export const hasNumbers = (value, number) => {
+  if (isEmpty(value)) {
+    return false;
+  }
+
   let count = 0;
   [...value].forEach((char) => {
     if (isNumber(char)) {
@@ -92,9 +97,13 @@ export const convertToSlug = value => value.toLowerCase().replace(/[^\w ]+/g, ''
  *
  * @param {String} value
  * @param {Number} number
- * @returns boolean
+ * @returns Boolean
  */
 export const hasSpecialChars = (value, number) => {
+  if (isEmpty(value)) {
+    return false;
+  }
+
   let count = 0;
   const specialCharacters = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
   const stringArray = [...value];

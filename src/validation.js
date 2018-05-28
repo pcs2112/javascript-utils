@@ -61,8 +61,12 @@ export const required = (msg = undefined) => (value) => {
  * @param {Boolean} allowEmpty
  */
 export const email = (msg = undefined, allowEmpty = false) => (value) => {
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
+
   let error = '';
-  if (!isAllowEmpty(allowEmpty, value) && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+  if (isEmpty(value) || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
     error = getErrorMessage('email', msg);
   }
 
@@ -77,9 +81,12 @@ export const email = (msg = undefined, allowEmpty = false) => (value) => {
  * @param {Boolean} allowEmpty
  */
 export const minLength = (min, msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !isMinLength(value, min)) {
+  let error = '';
+  if (isEmpty(value) || !isMinLength(value, min)) {
     error = getErrorMessage('minLength', msg).replace('{min}', `${min}`);
   }
 
@@ -94,9 +101,12 @@ export const minLength = (min, msg = undefined, allowEmpty = false) => (value) =
  * @param {Boolean} allowEmpty
  */
 export const maxLength = (max, msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !isMaxLength(value, max)) {
+  let error = '';
+  if (isEmpty(value) || !isMaxLength(value, max)) {
     error = getErrorMessage('maxLength', msg).replace('{max}', `${max}`);
   }
 
@@ -110,9 +120,12 @@ export const maxLength = (max, msg = undefined, allowEmpty = false) => (value) =
  * @param {Boolean} allowEmpty
  */
 export const integer = (msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !Number.isInteger(Number(value))) {
+  let error = '';
+  if (isEmpty(value) || !Number.isInteger(Number(value))) {
     error = getErrorMessage('integer', msg);
   }
 
@@ -126,9 +139,12 @@ export const integer = (msg = undefined, allowEmpty = false) => (value) => {
  * @param {Boolean} allowEmpty
  */
 export const numeric = (msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !isNumber(value)) {
+  let error = '';
+  if (isEmpty(value) || !isNumber(value)) {
     error = getErrorMessage('numeric', msg);
   }
 
@@ -143,9 +159,12 @@ export const numeric = (msg = undefined, allowEmpty = false) => (value) => {
  * @param {Boolean} allowEmpty
  */
 export const pattern = (regex, msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !regex.test(value)) {
+  let error = '';
+  if (isEmpty(value) || !regex.test(value)) {
     error = getErrorMessage('pattern', msg);
   }
 
@@ -160,9 +179,12 @@ export const pattern = (regex, msg = undefined, allowEmpty = false) => (value) =
  * @param {Boolean} allowEmpty
  */
 export const oneOf = (enumeration, msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !~enumeration.indexOf(value)) { // eslint-disable-line
+  let error = '';
+  if (isEmpty(value) || !~enumeration.indexOf(value)) { // eslint-disable-line
     error = getErrorMessage('oneOf', msg).replace('{values}', enumeration.join(', '));
   }
 
@@ -213,9 +235,12 @@ export const fullName = (msg = undefined, allowEmpty = false) => (value) => {
  * @param {Boolean} allowEmpty
  */
 export const validDate = (dateFormat, msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !moment(value, dateFormat).isValid()) {
+  let error = '';
+  if (isEmpty(value) || !moment(value, dateFormat).isValid()) {
     error = getErrorMessage('validateDate', msg);
   }
 
@@ -310,11 +335,13 @@ export const maxDate = (maxDateValue, dateFormat, msg = undefined, allowEmpty = 
  * @param {Boolean} allowEmpty
  */
 export const numericLength = (length, msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
+  let error = '';
   const normalizedValue = isEmpty(value) ? '' : `${value}`;
-  if (!isAllowEmpty(allowEmpty, normalizedValue)
-    && (!isNumber(normalizedValue) || normalizedValue.length !== length)) {
+  if (isEmpty(normalizedValue) || !isNumber(normalizedValue) || normalizedValue.length !== length) {
     error = getErrorMessage('numericLength', msg).replace('{length}', `${length}`);
   }
 
@@ -333,7 +360,7 @@ export const minNumber = (min, msg = undefined, allowEmpty = false) => (value) =
     return '';
   }
 
-  if (!isNumber(value)) {
+  if (isEmpty(value) || !isNumber(value)) {
     return 'Please enter a number';
   }
 
@@ -356,7 +383,7 @@ export const maxNumber = (max, msg = undefined, allowEmpty = false) => (value) =
     return '';
   }
 
-  if (!isNumber(value)) {
+  if (isEmpty(value) || !isNumber(value)) {
     return 'Please enter a number';
   }
 
@@ -375,9 +402,12 @@ export const maxNumber = (max, msg = undefined, allowEmpty = false) => (value) =
  * @param {Boolean} allowEmpty
  */
 export const numbersRequired = (length, msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !hasNumbers(value, length)) {
+  let error = '';
+  if (isEmpty(value) || !hasNumbers(value, length)) {
     error = getErrorMessage('numbersRequired', msg).replace('{length}', `${length}`);
   }
 
@@ -392,9 +422,12 @@ export const numbersRequired = (length, msg = undefined, allowEmpty = false) => 
  * @param {Boolean} allowEmpty
  */
 export const specialCharsRequired = (length, msg = undefined, allowEmpty = false) => (value) => {
-  let error = '';
+  if (isAllowEmpty(allowEmpty, value)) {
+    return '';
+  }
 
-  if (!isAllowEmpty(allowEmpty, value) && !hasSpecialChars(value, length)) {
+  let error = '';
+  if (isEmpty(value) || !hasSpecialChars(value, length)) {
     error = getErrorMessage('specialCharsRequired', msg).replace('{length}', `${length}`);
   }
 
@@ -416,11 +449,15 @@ export const validPassword =
     const numbersLengthValidation = numbersRequired(numbersLength, undefined, allowEmpty);
     const passwordLengthValidation = minLength(passwordLength, undefined, allowEmpty);
     return (value) => {
+      if (isAllowEmpty(allowEmpty, value)) {
+        return '';
+      }
+
       let error = '';
-      if (!isAllowEmpty(allowEmpty, value) &&
-        (specialCharsValidation(value) ||
-          numbersLengthValidation(value) ||
-          passwordLengthValidation(value))) {
+      if (isEmpty(value)
+        || specialCharsValidation(value)
+        || numbersLengthValidation(value)
+        || passwordLengthValidation(value)) {
         error = replaceArray(
           getErrorMessage('passwordValidator', msg),
           ['{specialCharsLength}', '{numbersLength}', '{passwordLength}'],
