@@ -29,3 +29,12 @@ export const classNames = names => names.filter(className => !!className).join('
  * @returns {Boolean}
  */
 export const isPromise = obj => typeof obj === 'object' && obj && obj.then instanceof Function;
+
+/**
+ * Checks the obj has the specified property.
+ *
+ * @param {Object} obj
+ * @param {String} prop
+ * @returns {Boolean}
+ */
+export const objectHasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
