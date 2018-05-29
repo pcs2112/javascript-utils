@@ -38,3 +38,11 @@ export const isPromise = obj => typeof obj === 'object' && obj && obj.then insta
  * @returns {Boolean}
  */
 export const objectHasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+
+/**
+ * Delays execution of code by the specified amount of microseconds.
+ *
+ * @param {Number} ms
+ * @returns {Promise}
+ */
+export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
