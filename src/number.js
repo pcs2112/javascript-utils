@@ -96,3 +96,26 @@ export const calculateEarnings = (sqrFeetCost, length, width) =>
  */
 export const getRandomNumber = length =>
   Math.floor((10 ** (length - 1)) + Math.random() * 9 * (10 ** (length - 1))); // eslint-disable-line
+
+/**
+ * Returns the coordinates of a random point near the specified coordinates and distance.
+ * @source https://stackoverflow.com/questions/2187657/calculate-second-point-knowing-the-starting-point-and-distance
+ *
+ * @param {Number} lat
+ * @param {Number} lng
+ * @param {Number} r
+ * @returns {{lat: Number, lng: Number}}
+ */
+export const offsetPoint = (lat, lng, r = 100) => {
+  const theta = 135;
+  const dx = r * Math.cos(theta);
+  const dy = r * Math.sin(theta);
+
+  const deltaLat = dy / 110540;
+  const deltaLng = dx / (111320 * Math.cos(lat));
+
+  return {
+    lat: lat + deltaLat,
+    lng: lng + deltaLng
+  };
+};
