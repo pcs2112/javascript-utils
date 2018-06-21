@@ -53,7 +53,7 @@ const get = (name) => {
 };
 
 export default (name, value, options) => {
-  if (arguments.length < 2) {
+  if (typeof value === 'undefined') {
     return get(name);
   }
 
