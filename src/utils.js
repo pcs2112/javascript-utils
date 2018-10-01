@@ -12,7 +12,7 @@ export const isEmpty = value => value === undefined || value === null || value =
  * @param {String|Number|Object|undefined|null} value
  * @returns {Boolean}
  */
-export const isUndefined = value => typeof value === 'undefined';
+export const isUndefined = value => typeof value === 'undefined' || value === null;
 
 /**
  * Joins an array of css class names and returns the concatenated class name.
