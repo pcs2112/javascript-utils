@@ -28,7 +28,7 @@
     "moment": "2.23.0",
     "parse-full-name": "^1.2.3",
     "react": "16.7.0",
-    "react-router": "^4.2.0",
+    "react-router": "4.4.0-beta.1",
     "react-router-config": "4.4.0-beta.6",
     "redux-object": "0.5.7",
     "reselect": "^4.0.0"
