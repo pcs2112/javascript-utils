@@ -26,7 +26,8 @@
     }],
     "no-var": 0,
     "no-plusplus": 0,
-    "no-restricted-globals": 0
+    "no-restricted-globals": 0,
+    "implicit-arrow-linebreak": 0
   },
   "plugins": [
     "import"
