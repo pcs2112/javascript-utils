@@ -1,4 +1,4 @@
-export crudListReducerFor from './crudListReducerFor';
-export itemListReducerFor from './itemListReducerFor';
-export itemReducerFor from './itemReducerFor';
-export paginationReducerFor from './paginationReducerFor';
+export crudListReducerFor, { initialState as crudListReducerForInitalState } from './crudListReducerFor';
+export itemListReducerFor, { initialState as itemListReducerForInitalState } from './itemListReducerFor';
+export itemReducerFor, { initialState as itemReducerForInitalState } from './itemReducerFor';
+export paginationReducerFor, { initialState as paginationReducerForInitalState } from './paginationReducerFor';

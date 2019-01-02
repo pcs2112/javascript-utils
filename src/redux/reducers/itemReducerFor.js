@@ -1,4 +1,4 @@
-export const defaultInitialState = {
+export const initialState = {
   isFetching: false,
   fetchingError: false,
   dataLoaded: false
@@ -11,8 +11,8 @@ export const defaultInitialState = {
  * @returns {Function}
  */
 const itemReducerFor = ({
-  FETCH_BEGIN, FETCH_SUCCESS, FETCH_FAIL, RESET, initialState
-}) => (state = Object.assign(defaultInitialState, initialState), action) => {
+  FETCH_BEGIN, FETCH_SUCCESS, FETCH_FAIL, RESET
+}) => (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BEGIN:
       return {
