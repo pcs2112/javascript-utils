@@ -16,14 +16,19 @@ export const arrayUnique = arrArg => arrArg.filter((elem, pos, arr) => arr.index
  */
 export const treeify = (list, keyAttr = 'id', parentAttr = 'parent', childrenAttr = 'children') => {
   const treeList = [];
+  const newList = [];
   const lookup = {};
 
   list.forEach((obj) => {
-    lookup[obj[keyAttr]] = obj;
-    obj[childrenAttr] = []; // eslint-disable-line
+    const newObj = {
+      ...obj
+    };
+    lookup[newObj[keyAttr]] = newObj;
+    newObj[childrenAttr] = [];
+    newList.push(newObj);
   });
 
-  list.forEach((obj) => {
+  newList.forEach((obj) => {
     if (obj[parentAttr] !== null) {
       lookup[obj[parentAttr]][childrenAttr].push(obj);
     } else {
