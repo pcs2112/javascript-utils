@@ -1,3 +1,5 @@
+import { isEmpty } from './utils';
+
 /**
  * Returns an array out duplicate values.
  *
@@ -29,8 +31,9 @@ export const treeify = (list, keyAttr = 'id', parentAttr = 'parent', childrenAtt
   });
 
   newList.forEach((obj) => {
-    if (obj[parentAttr] !== null) {
-      lookup[obj[parentAttr]][childrenAttr].push(obj);
+    const parentId = obj[parentAttr];
+    if (!isEmpty(parentId) && parentId > 0) {
+      lookup[parentId][childrenAttr].push(obj);
     } else {
       treeList.push(obj);
     }
