@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import { isEmpty } from './utils';
 
 /**
@@ -22,9 +23,7 @@ export const treeify = (list, keyAttr = 'id', parentAttr = 'parent', childrenAtt
   const lookup = {};
 
   list.forEach((obj) => {
-    const newObj = {
-      ...obj
-    };
+    const newObj = cloneDeep(obj);
     lookup[newObj[keyAttr]] = newObj;
     newObj[childrenAttr] = [];
     newList.push(newObj);
