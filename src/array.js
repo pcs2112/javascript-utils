@@ -43,15 +43,15 @@ export const treeify = (list, keyAttr = 'id', parentAttr = 'parent', childrenAtt
 
 /**
  * Flattens a tree.
- * @param {Array} nodes
+ * @param {Array} list
  * @returns {Array}
  */
-export const untreeify = (nodes) => {
+export const untreeify = (list) => {
   let result = [];
-  nodes.forEach((a) => {
-    result.push(a);
-    if (Array.isArray(a.children)) {
-      result = result.concat(untreeify(a.children));
+  list.forEach((obj) => {
+    result.push(obj.children);
+    if (Array.isArray(obj.children)) {
+      result = result.concat(untreeify(obj.children));
     }
   });
   return result;

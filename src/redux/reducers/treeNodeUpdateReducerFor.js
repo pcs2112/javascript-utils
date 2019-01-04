@@ -1,8 +1,5 @@
-import { untreeify } from '../../array';
-
 export const initialState = {
-  data: false,
-  dataLoaded: false
+  nodes: false
 };
 
 /**
@@ -20,7 +17,7 @@ const treeNodeUpdateReducerFor = ({
         nodes, node, prop, value
       } = action.payload;
 
-      const newNodes = untreeify(nodes).map((existingNode) => {
+      const newNodes = nodes.map((existingNode) => {
         if (existingNode.id === node.id) {
           return {
             ...existingNode,
@@ -36,7 +33,7 @@ const treeNodeUpdateReducerFor = ({
 
       return {
         ...state,
-        data: newNodes
+        nodes: newNodes
       };
     }
     default:

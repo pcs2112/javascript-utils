@@ -1,8 +1,5 @@
-import { untreeify } from '../../array';
-
 export const initialState = {
-  data: false,
-  dataLoaded: false
+  nodes: false
 };
 
 const selectNodes = (nodes, selected) => (
@@ -45,13 +42,10 @@ const treeNodeSelectReducerFor = ({
   switch (action.type) {
     case SELECT: {
       const { nodes, node } = action.payload;
-      const new1 = nodeSelectionHandler(nodes, node);
-      console.log(new1);
-      const newData = untreeify(new1);
-      console.log(newData);
+      const newNodes = nodeSelectionHandler(nodes, node);
       return {
         ...state,
-        data: newData
+        nodes: newNodes
       };
     }
     default:
