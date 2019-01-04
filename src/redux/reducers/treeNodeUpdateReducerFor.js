@@ -12,10 +12,10 @@ export const initialState = {
  * @returns {Function}
  */
 const treeNodeUpdateReducerFor = ({
-  SELECT
+  UPDATE
 }) => (state = initialState, action) => {
   switch (action.type) {
-    case SELECT: {
+    case UPDATE: {
       const {
         nodes, node, prop, value
       } = action.payload;
