@@ -1,3 +1,5 @@
+import { replaceNodeFromTree, deleteNodeFromTree } from 'react-virtualized-tree/lib/selectors/nodes';
+
 export const initialState = {
   nodes: false
 };
@@ -9,27 +11,23 @@ export const initialState = {
  * @returns {Function}
  */
 const treeNodeUpdateReducerFor = ({
-  UPDATE
+  UPDATE_NODE, DELETE_NODE
 }) => (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE: {
-      const {
-        nodes, node, prop, value
-      } = action.payload;
+    case UPDATE_NODE: {
+      const { nodes, node } = action.payload;
 
-      const newNodes = nodes.map((existingNode) => {
-        if (existingNode.id === node.id) {
-          return {
-            ...existingNode,
-            state: {
-              ...(existingNode.state || {}),
-              [prop]: value
-            }
-          };
-        }
+      const newNodes = replaceNodeFromTree(nodes, node);
 
-        return existingNode;
-      });
+      return {
+        ...state,
+        nodes: newNodes
+      };
+    }
+    case DELETE_NODE: {
+      const { nodes, node } = action.payload;
+
+      const newNodes = deleteNodeFromTree(nodes, node);
 
       return {
         ...state,

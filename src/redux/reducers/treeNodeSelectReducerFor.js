@@ -37,10 +37,10 @@ export const nodeSelectionHandler = (nodes, updatedNode) => (
  * @returns {Function}
  */
 const treeNodeSelectReducerFor = ({
-  SELECT
+  SELECT_NODE
 }) => (state = initialState, action) => {
   switch (action.type) {
-    case SELECT: {
+    case SELECT_NODE: {
       const { nodes, node } = action.payload;
       const newNodes = nodeSelectionHandler(nodes, node);
       return {
