@@ -45,7 +45,10 @@ const treeNodeSelectReducerFor = ({
   switch (action.type) {
     case SELECT: {
       const { nodes, node } = action.payload;
-      const newData = untreeify(nodeSelectionHandler(nodes, node));
+      const new1 = nodeSelectionHandler(nodes, node);
+      console.log(new1);
+      const newData = untreeify(new1);
+      console.log(newData);
       return {
         ...state,
         data: newData
