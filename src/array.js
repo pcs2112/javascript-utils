@@ -1,9 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { isEmpty } from './utils';
 
-const isNodeExpanded = node => node.state && node.state.expanded;
-const nodeHasChildren = node => node.children && node.children.length;
-
 /**
  * Returns an array out duplicate values.
  *
@@ -47,25 +44,18 @@ export const treeify = (list, keyAttr = 'id', parentAttr = 'parent', childrenAtt
 /**
  * Flattens a tree.
  * @param {Array} nodes
- * @param {Array} parents
  * @returns {Array}
  */
-export const untreeify = (nodes, parents = []) => (
-  nodes.reduce((flattenedTree, node) => {
-    const deepness = parents.length;
-    const nodeWithHelpers = { ...node, deepness, parents };
-
-    if (!nodeHasChildren(node) || !isNodeExpanded(node)) {
-      return [...flattenedTree, nodeWithHelpers];
+export const untreeify = (nodes) => {
+  let result = [];
+  nodes.forEach((a) => {
+    result.push(a);
+    if (Array.isArray(a.children)) {
+      result = result.concat(untreeify(a.children));
     }
-
-    return [
-      ...flattenedTree,
-      nodeWithHelpers,
-      ...untreeify(node.children, [...parents, node.id])
-    ];
-  }, [])
-);
+  });
+  return result;
+};
 
 /**
  * Finds the index of an object in a list. -1 is
