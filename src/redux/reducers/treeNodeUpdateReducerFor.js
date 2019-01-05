@@ -18,9 +18,11 @@ const treeNodeUpdateReducerFor = ({
       const { nodes } = state;
       const { node, parentNodeId } = action.payload;
       const flattenedTree = getFlattenedTree(nodes);
+      console.log(flattenedTree);
       const parentNode = flattenedTree.find(
         flattenedTreeNode => flattenedTreeNode.id === parentNodeId
       );
+      console.log(parentNode);
       const newNode = {
         ...node,
         children: [],
