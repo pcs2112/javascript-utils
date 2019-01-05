@@ -1,4 +1,4 @@
-import { replaceNodeFromTree, deleteNodeFromTree } from 'react-virtualized-tree/lib/selectors/nodes';
+import { replaceNodeFromTree, deleteNodeFromTree, getFlattenedTree } from 'react-virtualized-tree/lib/selectors/nodes';
 
 export const initialState = {
   nodes: false
@@ -11,9 +11,32 @@ export const initialState = {
  * @returns {Function}
  */
 const treeNodeUpdateReducerFor = ({
-  UPDATE_NODE, DELETE_NODE
+  ADD_NODE, UPDATE_NODE, DELETE_NODE
 }) => (state = initialState, action) => {
   switch (action.type) {
+    case ADD_NODE: {
+      const { nodes } = state;
+      const { node, parentNodeId } = action.payload;
+      const flattenedTree = getFlattenedTree(nodes);
+      const parentNode = flattenedTree.find(
+        flattenedTreeNode => flattenedTreeNode.id === parentNodeId
+      );
+      const newNode = {
+        ...node,
+        children: [],
+        parents: [
+          ...parentNode.parents,
+          parentNode.id
+        ],
+        deepness: parentNode.deepness + 1
+      };
+
+      const newNodes = replaceNodeFromTree(nodes, newNode);
+      return {
+        ...state,
+        nodes: newNodes
+      };
+    }
     case UPDATE_NODE: {
       const { nodes, node } = action.payload;
 
