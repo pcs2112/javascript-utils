@@ -34,6 +34,7 @@ const treeNodeUpdateReducerFor = ({
       };
 
       const newNodes = replaceNodeFromTree(nodes, newNode);
+      console.log(newNodes);
       return {
         ...state,
         nodes: newNodes
