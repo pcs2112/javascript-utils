@@ -32,8 +32,9 @@ const treeNodeUpdateReducerFor = ({
         ],
         deepness: parentNode.deepness + 1
       };
+      parentNode.children.push(newNode);
 
-      const newNodes = replaceNodeFromTree(nodes, newNode);
+      const newNodes = replaceNodeFromTree(nodes, parentNode);
       console.log(newNodes);
       return {
         ...state,
