@@ -21,6 +21,10 @@ const treeNodeUpdateReducerFor = ({
       const parentNode = flattenedTree.find(
         flattenedTreeNode => flattenedTreeNode.id === parentNodeId
       );
+      if (!parentNode.state) {
+        parentNode.state = {};
+      }
+      parentNode.state.expanded = true;
       const newNode = {
         ...node,
         children: []
