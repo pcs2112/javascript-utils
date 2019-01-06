@@ -1,3 +1,5 @@
+import { replaceNodeFromTree } from 'react-virtualized-tree/lib/selectors/nodes';
+
 export const initialState = {
   nodes: false
 };
@@ -37,12 +39,20 @@ export const nodeSelectionHandler = (nodes, updatedNode) => (
  * @returns {Function}
  */
 const treeNodeSelectReducerFor = ({
-  SELECT_NODE
+  SELECT_NODE, SINGLE_SELECT_NODE
 }) => (state = initialState, action) => {
   switch (action.type) {
     case SELECT_NODE: {
       const { nodes, node } = action.payload;
       const newNodes = nodeSelectionHandler(nodes, node);
+      return {
+        ...state,
+        nodes: newNodes
+      };
+    }
+    case SINGLE_SELECT_NODE: {
+      const { nodes, node } = action.payload;
+      const newNodes = replaceNodeFromTree(nodes, node);
       return {
         ...state,
         nodes: newNodes
