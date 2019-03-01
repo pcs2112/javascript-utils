@@ -1,12 +1,32 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { isEmpty } from './utils';
+import { isEmpty, objectHasOwnProperty } from './utils';
 
 /**
  * Returns an array out duplicate values.
  *
  * @param {Array} arrArg
  */
-export const arrayUnique = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
+export const arrayUnique = (arrArg) => {
+  const prims = {
+    boolean: {}, number: {}, string: {}
+  };
+
+  const objs = [];
+
+  return arrArg.filter((item) => {
+    const type = typeof item;
+    if (type in prims) {
+      if (objectHasOwnProperty(prims[type], item)) {
+        return false;
+      }
+
+      prims[type][item] = true;
+      return true;
+    }
+
+    return objs.indexOf(item) >= 0 ? false : objs.push(item);
+  });
+};
 
 /**
  * Converts a flat list into a hierarchy tree.
