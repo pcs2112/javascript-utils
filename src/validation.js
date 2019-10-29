@@ -1,4 +1,5 @@
 import moment from 'moment';
+import _ from 'lodash';
 import { parseFullName } from 'parse-full-name';
 import { isEmpty } from './utils';
 import { isNumber } from './number';
@@ -478,7 +479,7 @@ export const createValidator = rules => (data = {}) => {
   const errors = {};
   Object.keys(rules).forEach((key) => {
     const rule = join([].concat(rules[key]));
-    const error = rule(data[key], data);
+    const error = rule(_.get(data, key), data);
     if (!isEmpty(error)) {
       errors[key] = error;
     }
