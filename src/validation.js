@@ -481,7 +481,7 @@ export const createValidator = rules => (data = {}) => {
     const rule = join([].concat(rules[key]));
     const error = rule(_.get(data, key), data);
     if (!isEmpty(error)) {
-      errors[key] = error;
+      _.set(errors, key, error);
     }
   });
 
