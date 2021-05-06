@@ -24,7 +24,7 @@
     "test": "mocha --require babel-polyfill --require babel-register tests/**/*$MATCH*.js --reporter spec||exit 0"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "parse-full-name": "^1.2.4",
     "react": "^16.10.2",
